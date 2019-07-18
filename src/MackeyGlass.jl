@@ -43,7 +43,7 @@ By default :\n
 function MGGenerator(;sample_n = 12000, x0 = 1.2, deltat = 0.1, tau = 17,
     timeStep= 0, a = 0.2, b = 0.1)
     X, T, x0, deltat, tau, x_history, x_t, index = MGInit(;sample_n = sample_n,
-        timeStep = timeStep, x0 = x0, deltat = deltat, tau = tau, 
+        timeStep = timeStep, x0 = x0, deltat = deltat, tau = tau,
         a = a, b = b, xwidth = 1)
     for i = 2:sample_n+1
         X[i], x_t, x_history, index, T[i] = MGStep(x_t,x_history, T[i-1],
@@ -90,11 +90,12 @@ Advanced : `MGInit(; sample_n = 12000, timeStep = 0,
         x0 = 1.2, deltat = 0.1, tau = 17, a = 0.2, b = 0.1)
 """
 function MGInit(; sample_n = 12000, timeStep = 0,
-        x0 = 1.2, deltat = 0.1, tau = 17, a = 0.2, b = 0.1, xwidth = 1)
+        x0 = 1.2, deltat = 0.1, tau = 17, a = 0.2, b = 0.1,
+        xwidth = 1, X = zeros(sample_n+1, xwidth) .* NaN)
     history_length = Int64(floor(tau/deltat))
     x_history = zeros(history_length) # here we assume x(t)=0 for -tau <= t < 0
     x_t = x0;
-    X = zeros(sample_n+1, xwidth) .* NaN; # vector of all generated x samples
+    #X = zeros(sample_n+1, xwidth) .* NaN; # vector of all generated x samples
     # there is two
     T = zeros(sample_n+1, 1); # vector of time samples
     T[1] = timeStep
